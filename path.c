@@ -1,30 +1,5 @@
 #include "main.h"
-/**
- * _getenv - retrieves the value of an environment variable.
- * @name: string input
-*/
-char *_getenv(char *name)
-{
-	int i = -1;
-	size_t name_len;
-	if (name == NULL || *name == '\0')
-		return (NULL);
-	if (environ == NULL)
-		return (NULL);
-	name_len = _strlen(name);
-	while (environ[++i])
-	{
-		if (!_strncmp(environ[i], name, name_len) && environ[i][name_len] == '=')
-		{
-			return (environ[i] + name_len + 1);
-		}
-	}
-	return (NULL);
-}
-/**
- * _which - locate the executable file associated with a given command.
- * @d: string input
- */
+
 int _which(data *d)
 {
 	char *token, *path,
@@ -61,11 +36,33 @@ step_out:
 	free(paths);
 	return (find);
 }
-/*
- * create_new_entry - Initialize a new environment variable,
- *  or modify an existing one
- * @name: variable name
- * @value: variable value
+/**
+ * _which - locate the executable file associated with a given command.
+ * @d: string input
+ * Return: void
+ */
+ char *_getenv(char *name)
+{
+	int i = -1;
+	size_t name_len;
+	if (name == NULL || *name == '\0')
+		return (NULL);
+	if (environ == NULL)
+		return (NULL);
+	name_len = _strlen(name);
+	while (environ[++i])
+	{
+		if (!_strncmp(environ[i], name, name_len) && environ[i][name_len] == '=')
+		{
+			return (environ[i] + name_len + 1);
+		}
+	}
+	return (NULL);
+}
+/**
+ * _getenv - retrieves the value of an environment variable.
+ * @name: string input
+ * Return: value of an environment variable
  */
 char *create_new_entry(char *name, char *value)
 {
@@ -76,13 +73,33 @@ char *create_new_entry(char *name, char *value)
 	strcpy(new_entry, name);
 	strcat(new_entry, "=");
 	strcat(new_entry, value);
-	return (new_entry);
+    return (new_entry);
 }
 /**
- * _new_environ - Initialize a new environment variable,
+ * create_new_entry - Initialize a new environment variable,
  *  or modify an existing one
  * @name: variable name
  * @value: variable value
+ * Return: void
+ */
+ int _setenv(data *d, char *name, char *value)
+{
+	char **new_environ;
+	if (!name || !value)
+		return (-1);
+	new_environ = _new_environ(name, value);
+	if (!new_environ)
+		return (-1);
+	environ = new_environ;
+	d->flag_setenv = 1;
+	return (0);
+}
+/**
+ * _setenv - Initialize a new environment variable, or modify an existing one
+ * @d: to use the flag
+ * @name: variable name
+ * @value: variable value
+ * Return: void
  */
 char **_new_environ(char *name, char *value)
 {
@@ -125,21 +142,11 @@ char **_new_environ(char *name, char *value)
 		new_environ[env_len] = NULL;
 	return (new_environ);
 }
-/*
- * _setenv - Initialize a new environment variable, or modify an existing one
- * @d: to use the flag
+/**
+ * _new_environ - Initialize a new environment variable,
+ *  or modify an existing one
  * @name: variable name
  * @value: variable value
+ * Return: void
  */
-int _setenv(data *d, char *name, char *value)
-{
-	char **new_environ;
-	if (!name || !value)
-		return (-1);
-	new_environ = _new_environ(name, value);
-	if (!new_environ)
-		return (-1);
-	environ = new_environ;
-	d->flag_setenv = 1;
-	return (0);
-}
+

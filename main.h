@@ -9,15 +9,9 @@
 #include <errno.h>
 #include <string.h>
 #include <signal.h>
+
 extern char **environ;
-/**
- * struct data - holds the main data.
- * @av: Array of tokens to pass for execve
- * @cmd: The user input, the command line
- * @shell_name: The name of the shell program
- * @last_exit_status: last exit status of last command executed
- * @flag_setenv: 1 if user did exec setenv (use it to free memory)
- */
+
 typedef struct data
 {
 	char **av;
@@ -27,15 +21,23 @@ typedef struct data
 	int flag_setenv;
 } data;
 /**
- * struct builtin - holds the main data.
- * @cmd: built in cmd
- * @f: function of builtin cmd
+ * struct data - holds the main data.
+ * @av: Array of tokens to pass for execve
+ * @cmd: The user input, the command line
+ * @shell_name: The name of the shell program
+ * @last_exit_status: last exit status of last command executed
+ * @flag_setenv: 1 if user did exec setenv (use it to free memory)
  */
 typedef struct builtin
 {
 	const char *cmd;
 	void (*f)(data *d);
 } builtin;
+/**
+ * struct builtin - holds the main data.
+ * @cmd: built in cmd
+ * @f: function of builtin cmd
+ */
 /* builtin.c */
 int exec_builtin(data *d);
 void builtin_exit(data *d);
@@ -53,14 +55,14 @@ void read_cmd(data *d);
 void _perror(const char *str1, const char *str2);
 void _trim(char *str);
 void *_realloc(void *ptr, unsigned int new_size);
-/* exec.c */
-void start_process(data *d);
-void handler_sigint(int sig);
-void _exec(data *d);
 /* path.c */
 char *_getenv(char *name);
 int _which(data *d);
 int _setenv(data *d, char *name, char *value);
+/* exec.c */
+void start_process(data *d);
+void handler_sigint(int sig);
+void _exec(data *d);
 /* string_utils.c */
 unsigned int _strlen(char *str);
 int _strcmp(const char *s1, const char *s2);
@@ -71,5 +73,7 @@ char *_strcat(char *dest, const char *src);
 char *_strdup(const char *str);
 int _isnumber(const char *status);
 int _isdigit(int c);
+/* _getline.c */
+#define READ_BUF_SIZE 1024
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 #endif

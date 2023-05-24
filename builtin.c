@@ -1,7 +1,4 @@
 #include "main.h"
-/**
- * exec_builtin - check if built in and then exec
- * @d: data */
 int exec_builtin(data *d)
 {
 	builtin builtin[] = {
@@ -25,7 +22,26 @@ int exec_builtin(data *d)
 	return (0);
 }
 /**
- * builtin_exit - exits the shell
+ * exec_builtin - check if built in and then exec
+ * @d: data struct input
+ * Return: 1 if built in, 0 if not
+ */
+ void builtin_env(data *d)
+{
+	int i = 0;
+
+	(void)d;
+	while (environ[i])
+	{
+		_printf(environ[i]);
+		_printf("\n");
+		i++;
+	}
+}
+/**
+ * builtin_env - prints the current environment
+ * @d: data struct input
+ * Return: void
  */
 void builtin_exit(data *d)
 {
@@ -38,31 +54,11 @@ void builtin_exit(data *d)
 	exit(d->last_exit_status);
 }
 /**
- * builtin_env - prints the current environment
- **/
-void builtin_env(data *d)
-{
-	int i = 0;
+ * builtin_exit - exits the shell
+ * @d: data struct input
+ * Return: void
+ */
 
-	(void)d;
-	while (environ[i])
-	{
-		_printf(environ[i]);
-		_printf("\n");
-		i++;
-	}
-}
-void builtin_setenv(data *d)
-{
-	(void)d;
-	if (d->av[1] && d->av[2])
-	{
-		if (_setenv(d, d->av[1], d->av[2]) == -1)
-		{
-			perror("setenv");
-		}
-	}
-}
 void builtin_unsetenv(data *d)
 {
 	int i, j;
@@ -80,3 +76,25 @@ void builtin_unsetenv(data *d)
 			for (j = i; environ[j]; j++)
 				environ[j] = environ[j + 1];
 }
+/**
+ * builtin_unsetenv - Remove an environment variable
+ * @d: data struct input
+ * Return: void
+ */
+ void builtin_setenv(data *d)
+{
+	(void)d;
+	if (d->av[1] && d->av[2])
+	{
+		if (_setenv(d, d->av[1], d->av[2]) == -1)
+		{
+			perror("setenv");
+		}
+	}
+}
+/**
+ * builtin_setenv - Initialize a new environment variable,
+ * or modify an existing one
+ * @d: data struct input
+ * Return: void
+ */
