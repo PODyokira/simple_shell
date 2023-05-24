@@ -1,29 +1,28 @@
-
 #include "main.h"
 
 /**
  * _perror - print in stderr
- * @st1: name of shell program
- * @st2: message error
+ * @str1: name of shell program
+ * @str2: message error
  * Return: void
  */
-void _perror(const char *st1, const char *st2)
+void _perror(const char *str1, const char *str2)
 {
-	if (!st1 || !st2)
+	if (!str1 || !str2)
 		return;
 
-	while (*st1)
+	while (*str1)
 	{
-		write(STDERR_FILENO, st1, 1);
-		st1++;
+		write(STDERR_FILENO, str1, 1);
+		str1++;
 	}
 
 	write(STDERR_FILENO, ": ", 2);
 
-	while (*st2)
+	while (*str2)
 	{
-		write(STDERR_FILENO, st2, 1);
-		st2++;
+		write(STDERR_FILENO, str2, 1);
+		str2++;
 	}
 	write(STDERR_FILENO, "\n", 1);
 }
@@ -55,19 +54,19 @@ void _trim(char *str)
 /**
  * _realloc - reallocates a memory block using malloc and free
  *
- * @pp: pointer void
+ * @ptr: pointer void
  * @new_size: unsigned int
  *
  * Return: the newly allocated memory
  */
-void *_realloc(void *pp, unsigned int new_size)
+void *_realloc(void *ptr, unsigned int new_size)
 {
 	char *p;
-	unsigned int i, tp = new_size, old_size = sizeof(pp);
+	unsigned int i, tp = new_size, old_size = sizeof(ptr);
 
 	if (old_size == new_size)
-		return (pp);
-	if (pp == NULL)
+		return (ptr);
+	if (ptr == NULL)
 		return (malloc(new_size));
 
 	if (new_size > old_size)
@@ -75,15 +74,15 @@ void *_realloc(void *pp, unsigned int new_size)
 
 	if (new_size == 0)
 	{
-		free(pp);
+		free(ptr);
 		return (NULL);
 	}
 
 	p = malloc(new_size);
 
 	for (i = 0; i < tp; i++)
-		p[i] = ((char *)pp)[i];
-	free(pp);
+		p[i] = ((char *)ptr)[i];
+	free(ptr);
 	return (p);
 }
 

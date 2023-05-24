@@ -2,129 +2,129 @@
 
 /**
  * _printf - print a string to stander out put
- * @string: string input
+ * @str: string input
  * Return: void
  */
-void _printf(const char *string)
+void _printf(const char *str)
 {
-	if (!string)
+	if (!str)
 		return;
-	while (*string)
+	while (*str)
 	{
-		write(STDOUT_FILENO, string, 1);
-		string++;
+		write(STDOUT_FILENO, str, 1);
+		str++;
 	}
 }
 
 /**
  * free_array - free an array of pointers
- * @Ary: array of pointers
+ * @array: array of pointers
  * Return: void
  */
-void free_Ary(char **Ary)
+void free_array(char **array)
 {
 	int i;
 
-	if (!Ary)
+	if (!array)
 		return;
 
-	for (i = 0; Ary[i]; i++)
+	for (i = 0; array[i]; i++)
 	{
-		free(Ary[i]);
-		Ary[i] = NULL;
+		free(array[i]);
+		array[i] = NULL;
 	}
 
-	free(Ary);
+	free(array);
 }
 
 /**
  * split - split a given string by a delimiter
- * @dt: data struct input
+ * @d: data struct input
  * @delim: string input
  * Return: void
  */
-void split(data *dt, const char *delim)
+void split(data *d, const char *delim)
 {
 	char *token;
-	int n_token = 0;
+	int ntoken = 0;
 
-	dt->av = malloc(2 * sizeof(char *));
-	if (dt->av == NULL)
+	d->av = malloc(2 * sizeof(char *));
+	if (d->av == NULL)
 	{
-		free(dt->cmd);
-		perror(dt->shell_name);
+		free(d->cmd);
+		perror(d->shell_name);
 		exit(EXIT_FAILURE);
 	}
-	dt->av[0] = NULL;
-	dt->av[1] = NULL;
+	d->av[0] = NULL;
+	d->av[1] = NULL;
 
-	token = strtok(dt->cmd, delim);
+	token = strtok(d->cmd, delim);
 	while (token)
 	{
-		dt->av = _realloc(dt->av, (n_token + 2) * sizeof(char *));
-		if (dt->av == NULL)
+		d->av = _realloc(d->av, (ntoken + 2) * sizeof(char *));
+		if (d->av == NULL)
 			goto free;
-		dt->av[n_token] = _strdup(token);
-		if (dt->av[n_token] == NULL)
+		d->av[ntoken] = _strdup(token);
+		if (d->av[ntoken] == NULL)
 			goto free;
-		n_token++;
+		ntoken++;
 		token = strtok(NULL, delim);
 	}
-	dt->av[n_token] = NULL;
+	d->av[ntoken] = NULL;
 	return;
 free:
-	free_array(dt->av);
-	free(dt->cmd);
-	perror(dt->shell_name);
+	free_array(d->av);
+	free(d->cmd);
+	perror(d->shell_name);
 	exit(EXIT_FAILURE);
 }
 
 /**
  * init_data - init data
- * @dt: data struct input
+ * @d: data struct input
  * @shell_name: string input
  * Return: void
  */
 
-void init_data(data *dt, const char *shell_name)
+void init_data(data *d, const char *shell_name)
 {
-	dt->cmd = NULL;
-	dt->av = NULL;
-	dt->shell_name = shell_name;
-	dt->last_exit_status = EXIT_SUCCESS;
-	dt->flag_setenv = 0;
+	d->cmd = NULL;
+	d->av = NULL;
+	d->shell_name = shell_name;
+	d->last_exit_status = EXIT_SUCCESS;
+	d->flag_setenv = 0;
 }
 
 /**
  * read_cmd - get the commend from the prompt and structure it into data struct
- * @dt: data struct input
+ * @d: data struct input
  * Return: void
  */
-void read_cmd(data *dt)
+void read_cmd(data *d)
 {
 	size_t n = 0;
-	ssize_t n_read;
+	ssize_t nread;
 	int i = 0;
 
-	n_read = _getline(&dt->cmd, &n, stdin);
+	nread = _getline(&d->cmd, &n, stdin);
 
-	if (n_read == -1)
+	if (nread == -1)
 	{
-		free(dt->cmd);
+		free(d->cmd);
 		exit(EXIT_SUCCESS);
 	}
 
-	dt->cmd[n_read - 1] = '\0';
+	d->cmd[nread - 1] = '\0';
 	_trim(d->cmd);
-
-	for (i = 0; dt->cmd[i] != '\0'; i++)
+	/* replace hashtag with end of line we can also do it with strtok*/
+	for (i = 0; d->cmd[i] != '\0'; i++)
 	{
-		if (dt->cmd[i] == '#')
+		if (d->cmd[i] == '#')
 		{
-			dt->cmd[i] = '\0';
+			d->cmd[i] = '\0';
 			break;
 		}
 	}
-	_trim(dt->cmd);
+	_trim(d->cmd);
 }
 

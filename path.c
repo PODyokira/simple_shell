@@ -30,10 +30,10 @@ char *_getenv(char *name)
 
 /**
  * _which - locate the executable file associated with a given command.
- * @dt: string input
+ * @d: string input
  * Return: void
  */
-int _which(data *dt)
+int _which(data *d)
 {
 	char *token, *path,
 		*paths = malloc(_strlen(_getenv("PATH") ? _getenv("PATH") : "") + 1);
@@ -48,17 +48,17 @@ int _which(data *dt)
 	token = strtok(paths, ":");
 	while (token)
 	{
-		token_len = _strlen(token) + _strlen(dt->av[0]) + 2;
+		token_len = _strlen(token) + _strlen(d->av[0]) + 2;
 		path = malloc(token_len);
 		if (path == NULL)
 			return (find);
 		_strcpy(path, token);
 		_strcat(path, "/");
-		_strcat(path, dt->av[0]);
+		_strcat(path, d->av[0]);
 		if (access(path, F_OK) == 0)
 		{
-			free(dt->av[0]);
-			dt->av[0] = _strdup(path);
+			free(d->av[0]);
+			d->av[0] = _strdup(path);
 			free(path);
 			find = 0;
 			break;
@@ -145,12 +145,12 @@ char **_new_environ(char *name, char *value)
 
 /**
  * _setenv - Initialize a new environment variable, or modify an existing one
- * @dt: to use the flag
+ * @d: to use the flag
  * @name: variable name
  * @value: variable value
  * Return: void
  */
-int _setenv(data *dt, char *name, char *value)
+int _setenv(data *d, char *name, char *value)
 {
 	char **new_environ;
 
@@ -161,7 +161,7 @@ int _setenv(data *dt, char *name, char *value)
 	if (!new_environ)
 		return (-1);
 	environ = new_environ;
-	dt->flag_setenv = 1;
+	d->flag_setenv = 1;
 
 	return (0);
 }

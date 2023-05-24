@@ -11,7 +11,7 @@
 #include <sys/wait.h>
 #include <errno.h>
 #include <string.h>
-#include <sig.h>
+#include <signal.h>
 
 extern char **environ;
 
@@ -35,44 +35,44 @@ typedef struct data
 /**
  * struct builtin - holds the main data.
  * @cmd: built in cmd
- * @fb: function of builtin cmd
+ * @f: function of builtin cmd
  */
 typedef struct builtin
 {
 	const char *cmd;
-	void (*fb)(data *dt);
+	void (*f)(data *d);
 } builtin;
 
 /* builtin.c */
-int exec_builtin(data *dt);
-void builtin_exit(data *dt);
-void builtin_env(data *dt);
-void builtin_setenv(data *dt);
-void builtin_unsetenv(data *dt);
-void builtin_cd(data *dt);
+int exec_builtin(data *d);
+void builtin_exit(data *d);
+void builtin_env(data *d);
+void builtin_setenv(data *d);
+void builtin_unsetenv(data *d);
+void builtin_cd(data *d);
 
 
 /* helpers.c */
 void _printf(const char *str);
-void free_array(char **Ary);
-void split(data *dt, const char *delim);
-void init_data(data *dt, const char *shell_name);
-void read_cmd(data *dt);
+void free_array(char **array);
+void split(data *d, const char *delim);
+void init_data(data *d, const char *shell_name);
+void read_cmd(data *d);
 
 /* helpers2.c */
-void _perror(const char *st1, const char *st2);
+void _perror(const char *str1, const char *str2);
 void _trim(char *str);
-void *_realloc(void *pp, unsigned int new_size);
+void *_realloc(void *ptr, unsigned int new_size);
 
 /* exec.c */
-void start_process(data *dt);
+void start_process(data *d);
 void handler_sigint(int sig);
-void _exec(data *dt);
+void _exec(data *d);
 
 /* path.c */
 char *_getenv(char *name);
-int _which(data *dt);
-int _setenv(data *dt, char *name, char *value);
+int _which(data *d);
+int _setenv(data *d, char *name, char *value);
 
 /* string_utils.c */
 unsigned int _strlen(char *str);
@@ -88,9 +88,9 @@ int _isnumber(const char *status);
 int _isdigit(int c);
 
 /* _getline.c */
-#define READ_buff_SIZE 1024
+#define READ_BUF_SIZE 1024
 
-ssize_t _getline(char **line_ptr, size_t *n, FILE *stream);
+ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 
 
 #endif
