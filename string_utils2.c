@@ -1,5 +1,12 @@
 #include "main.h"
-
+/**
+ * _strdup - returns a pointer to a newly allocated space in memory,
+ * which contains a copy of the string given as a parameter.
+ *
+ * @str: string input
+ *
+ * Return: pointer
+ */
 char *_strdup(const char *str)
 {
 	int i, len = 0;
@@ -21,21 +28,14 @@ char *_strdup(const char *str)
 
 	return (result);
 }
+
+
 /**
- * _strdup - returns a pointer to a newly allocated space in memory,
- * @str: string input
- * Return: pointer
+ * _isnumber - check if a string is a number
+ * @status: string to be checked
+ * Return: void
  */
-int _isdigit(int c)
-{
-	return (c >= '0' && c <= '9');
-}
-/**
- * _isdigit - check if charachter is number
- * @c: charachter
- * Return: 1 if its a digit 0 otherwise
- */
- int _isnumber(const char *status)
+int _isnumber(const char *status)
 {
 	if (status == NULL || status[0] == '\0')
 		return (0);
@@ -47,8 +47,16 @@ int _isdigit(int c)
 	}
 	return (1);
 }
+
+
 /**
- * _isnumber - check if a string is a number
- * @status: string to be checked
- * Return: void
+ * _isdigit - check if charachter is number
+ * @c: charachter
+ * Return: 1 if its a digit 0 otherwise
  */
+int _isdigit(int c)
+{
+	return (c >= '0' && c <= '9');
+}
+
+

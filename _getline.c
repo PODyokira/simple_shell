@@ -1,4 +1,30 @@
 #include "main.h"
+
+/**
+ * _getline_helper - getline helper function
+ * @lineptr: string input
+ * @n: int input
+ * Return: int
+ */
+int _getline_helper(char **lineptr, size_t *n)
+{
+	if (*lineptr == NULL || *n == 0)
+	{
+		*n = 128;
+		*lineptr = malloc(*n);
+		if (*lineptr == NULL)
+			return (-1);
+	}
+	return (0);
+}
+
+/**
+ * _getline - reads the input from FILE
+ * @lineptr: string input
+ * @n: int input
+ * @stream: FILE input
+ * Return: ssize_t
+ */
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 {
 	ssize_t bytesRead = 0;
@@ -38,28 +64,4 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 	(*lineptr)[position] = '\0';
 	return (position);
 }
-/**
- * _getline - reads the input from FILE
- * @lineptr: string input
- * @n: int input
- * @stream: FILE input
- * Return: ssize_t
- */
- 
- int _getline_helper(char **lineptr, size_t *n)
-{
-	if (*lineptr == NULL || *n == 0)
-	{
-		*n = 128;
-		*lineptr = malloc(*n);
-		if (*lineptr == NULL)
-			return (-1);
-	}
-	return (0);
-}
-/**
- * _getline_helper - getline helper function
- * @lineptr: string input
- * @n: int input
- * Return: int
- */
+
