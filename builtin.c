@@ -1,10 +1,7 @@
 #include "main.h"
-
 /**
  * exec_builtin - check if built in and then exec
- * @d: data struct input
- * Return: 1 if built in, 0 if not
- */
+ * @d: data */
 int exec_builtin(data *d)
 {
 	builtin builtin[] = {
@@ -27,11 +24,8 @@ int exec_builtin(data *d)
 	}
 	return (0);
 }
-
 /**
  * builtin_exit - exits the shell
- * @d: data struct input
- * Return: void
  */
 void builtin_exit(data *d)
 {
@@ -43,12 +37,9 @@ void builtin_exit(data *d)
 		free_array(environ);
 	exit(d->last_exit_status);
 }
-
 /**
  * builtin_env - prints the current environment
- * @d: data struct input
- * Return: void
- */
+ **/
 void builtin_env(data *d)
 {
 	int i = 0;
@@ -61,13 +52,6 @@ void builtin_env(data *d)
 		i++;
 	}
 }
-/**
- * builtin_setenv - Initialize a new environment variable,
- * or modify an existing one
- * @d: data struct input
- * Return: void
- */
-
 void builtin_setenv(data *d)
 {
 	(void)d;
@@ -79,12 +63,6 @@ void builtin_setenv(data *d)
 		}
 	}
 }
-
-/**
- * builtin_unsetenv - Remove an environment variable
- * @d: data struct input
- * Return: void
- */
 void builtin_unsetenv(data *d)
 {
 	int i, j;
@@ -102,5 +80,3 @@ void builtin_unsetenv(data *d)
 			for (j = i; environ[j]; j++)
 				environ[j] = environ[j + 1];
 }
-
-

@@ -1,9 +1,7 @@
 #include "main.h"
-
 /**
  * builtin_cd - change directory
- * @d: data struct input
- * Return: void
+ * @d: data
  */
 void builtin_cd(data *d)
 {
@@ -25,4 +23,3 @@ void builtin_cd(data *d)
 		_setenv(d, "PWD", cwd);
 	}
 }
-

@@ -1,11 +1,8 @@
 #include "main.h"
-
 /**
  * start_process - start a new process
  * @d: data struct input
- * Return: void
- */
-
+ **/
 void start_process(data *d)
 {
 	pid_t child_pid = fork();
@@ -26,25 +23,17 @@ free:
 	free(d->cmd);
 	exit(EXIT_FAILURE);
 }
-
 /**
  * handler_sigint - Signal handler function
  * @signal: int input
- * Return: void
- */
-
+ **/
 void handler_sigint(int signal)
-{
-	/*const char prompt[] = PROMPT;*/
 	(void)signal;
 	exit(EXIT_FAILURE);
-	/*_printf(prompt);*/
 }
-
 /**
  * _exec - exectute cmd
  * @d: data struct input
- * Return: void
  */
 
 void _exec(data *d)
@@ -79,4 +68,3 @@ void _exec(data *d)
 		free(d->cmd);
 	}
 }
-
