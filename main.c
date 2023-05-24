@@ -1,8 +1,10 @@
+
 #include "main.h"
+
 /**
  * main - initialize the data
  * @arg_c: input the size of @arg_v
- * @arg_v: @arg_v: array containing the command line
+ * @arg_v: @arg_v: ary containing the command line
  * arguments provided as input
  * Return: Always 0
  */

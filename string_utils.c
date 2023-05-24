@@ -2,13 +2,13 @@
 #include "main.h"
 
 /**
- * _str_len - function that returns the
+ * _strlen - function that returns the
  * number of characters in a given string.
  * @str: the string input
  * Return: number of chars in the given string.
  */
 
-unsigned int _str_len(char *str)
+unsigned int _strlen(char *str)
 {
 	unsigned int i;
 
@@ -19,7 +19,7 @@ unsigned int _str_len(char *str)
 
 
 /**
- * _str_cmp - function that compares two strings
+ * _strcmp - function that compares two strings
  * and returns an integer.
  * @s1: input const string
  * @s2: input const string
@@ -29,7 +29,7 @@ unsigned int _str_len(char *str)
  * A negative value if s1 < s2
  * A positive value if s1 > s2"
  */
-int _str_cmp(const char *s1, const char *s2)
+int _strcmp(const char *s1, const char *s2)
 {
 	int i;
 	int res = 0;
@@ -47,7 +47,7 @@ int _str_cmp(const char *s1, const char *s2)
 }
 
 /**
- * _str_ncmp - function that compares two strings
+ * _strncmp - function that compares two strings
  * @s1: input const string
  * @s2: input const string
  * @n: input int
@@ -57,7 +57,7 @@ int _str_cmp(const char *s1, const char *s2)
  * A negative value if s1 < s2
  * A positive value if s1 > s2"
  */
-int _str_ncmp(const char *s1, const char *s2, int n)
+int _strncmp(const char *s1, const char *s2, int n)
 {
 	int i;
 	int res = 0;
@@ -78,13 +78,13 @@ int _str_ncmp(const char *s1, const char *s2, int n)
 }
 
 /**
- * _str_cpy - function that copies the contents of the
+ * _strcpy - function that copies the contents of the
  * source string to the destination string
  * @dest: input char *
  * @src: input const char *
  * Return: char *
  */
-char *_str_cpy(char *dest, const char *src)
+char *_strcpy(char *dest, const char *src)
 {
 	int len;
 
@@ -97,13 +97,13 @@ char *_str_cpy(char *dest, const char *src)
 }
 
 /**
- * _str_cat - function that appends the source
+ * _strcat - function that appends the source
  * string to the destination string.
  * @dest: input string
  * @src: input const string
  * Return: void
  */
-char *_str_cat(char *dest, const char *src)
+char *_strcat(char *dest, const char *src)
 {
 	char *result = dest;
 

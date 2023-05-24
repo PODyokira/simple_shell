@@ -16,7 +16,7 @@ extern char **env;
 /**
  * struct data - a data structure that
  * holds the main data
- * @av: Token array to be passed as arguments
+ * @av: Token ary to be passed as arguments
  * for the execve function
  * @cmd: command line
  * @shell_n: The name for the shell program.
@@ -45,7 +45,7 @@ void built_exist(data *d);
 void built_env(data *d);
 
 void _printf(const char *str);
-void free_ary(char **array);
+void free_ary(char **ary);
 void split(data *d, const char *delim);
 void Init_Data(data *d, const char *shell_n);
 void r_cmd(data *d);

@@ -1,14 +1,14 @@
 #include "main.h"
 
 /**
- * _str_dup - function that returns a pointer to a
+ * _strdup - function that returns a pointer to a
  * newly allocated memory space, which contains a duplicate
  * of the string provided as a parameter.
  * @str: the string input
  * Return: a pointer
  */
 
-char *_str_dup(const char *str)
+char *_strdup(const char *str)
 {
 	int i, len = 0;
 	char *result;

@@ -18,13 +18,13 @@ void _printf(const char *str)
 }
 
 /**
- * free_ary - function to deallocates memory for
+ * free_array - function to deallocates memory for
  * an array of pointers
  * @array: the array of pointers
  * Return: void.
  */
 
-void free_ary(char **array)
+void free_array(char **array)
 {
 	int i;
 
@@ -54,7 +54,7 @@ void split(data *d, const char *delim)
 	if (d->av == NULL)
 	{
 		free(d->cmd);
-		perror(d->shell_n);
+		perror(d->shell_name);
 		exit(EXIT_FAILURE);
 	}
 	d->av[0] = NULL;
@@ -66,7 +66,7 @@ void split(data *d, const char *delim)
 		d->av = _realloc(d->av, (n_token + 2) * sizeof(char *));
 		if (d->av == NULL)
 			goto free;
-		d->av[n_token] = _str_dup(token);
+		d->av[n_token] = _strdup(token);
 		if (d->av[n_token] == NULL)
 			goto free;
 		n_token++;
@@ -75,47 +75,47 @@ void split(data *d, const char *delim)
 	d->av[n_token] = NULL;
 	return;
 free:
-	free_ary(d->av);
+	free_array(d->av);
 	free(d->cmd);
-	perror(d->shell_n);
+	perror(d->shell_name);
 	exit(EXIT_FAILURE);
 }
 
 /**
- * Init_Data - initilize the data
+ * init_data - initilize the data
  * @d: inpute data structure
- * @shell_n: the string input
+ * @shell_name: the string input
  * Return: void
  */
 
-void Init_Data(data *d, const char *shell_n)
+void init_data(data *d, const char *shell_name)
 {
 	d->cmd = NULL;
 	d->av = NULL;
-	d->shell_n = shell_n;
+	d->shell_name = shell_name;
 }
 
 /**
- * r_cmd - function that retrieves the command
+ * read_cmd - function that retrieves the command
  * from the prompt and organizes it into
  * a data structure.
  * @d: the data structure input
  * Return: void
  */
 
-void r_cmd(data *d)
+void read_cmd(data *d)
 {
 	size_t n = 0;
-	ssize_t n_read;
+	ssize_t nread;
 
-	n_read = _get_line(&d->cmd, &n, stdin);
+	nread = _getline(&d->cmd, &n, stdin);
 
-	if (n_read == -1)
+	if (nread == -1)
 	{
 		free(d->cmd);
 		exit(EXIT_FAILURE);
 	}
 
-	d->cmd[n_read - 1] = '\0';
+	d->cmd[nread - 1] = '\0';
 	_trim(d->cmd);
 }
